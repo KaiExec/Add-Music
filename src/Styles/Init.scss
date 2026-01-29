@@ -1,0 +1,9 @@
+@use "./Var/base.scss";
+
+body {
+  color: base.$color-font;
+  background-color: base.$color-bg;
+}
+h1 {
+  color: #c99e60;
+}

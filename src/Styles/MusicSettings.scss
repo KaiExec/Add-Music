@@ -1,0 +1,70 @@
+@use "./Var/setting.scss";
+@use "./Var/base.scss";
+
+#setting-save {
+  background-color: #91c220;
+  width: 40%;
+  height: 80%;
+  margin: auto auto;
+  @include setting.set-border(2px);
+}
+.dialog {
+  &-title {
+    font-size: setting.$dialog-title-size;
+  }
+}
+
+.setting {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  right: 0;
+  &-btn {
+    margin-left: auto;
+    @include setting.clean-size;
+    font-size: setting.$open-btn-size;
+    background: transparent;
+  }
+  &-backdrop {
+    position: fixed;
+    z-index: 1;
+    @include setting.fs-container;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+  }
+  &-dialog {
+    // Positon
+    position: fixed;
+    z-index: 2;
+    @include setting.dialog-size;
+    // General
+    background-color: setting.$dialog-color-bg;
+    border-color: base.$color-border;
+    border-style: solid;
+    border-radius: 10px;
+    @include setting.set-border(2px);
+    // outline: 5px solid base.$color-border;
+    &-bar {
+      display: flex;
+      height: 5%;
+      &-btn {
+        margin-left: auto;
+        right: 0;
+        padding: 0;
+        border: 0;
+        font-size: 1em;
+        background: transparent;
+      }
+    }
+    &-form {
+      text-align: center;
+      display: grid;
+      grid-template-rows: 1fr 1fr 1fr 0.3fr;
+      height: calc(100% - setting.$dialog-bar-height);
+      &-item {
+        border: 0;
+      }
+    }
+  }
+}
