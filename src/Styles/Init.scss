@@ -7,3 +7,6 @@ body {
 h1 {
   color: #c99e60;
 }
+fieldset {
+  @include base.clean-size;
+}

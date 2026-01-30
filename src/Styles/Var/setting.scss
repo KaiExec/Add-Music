@@ -9,10 +9,6 @@ $open-btn-size: 1em;
   border-width: $width;
 }
 
-@mixin clean-size {
-  padding: 0;
-  border: 0;
-}
 @mixin dialog-size {
   width: 50%;
   top: 10%;

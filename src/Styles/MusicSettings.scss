@@ -22,7 +22,7 @@
   right: 0;
   &-btn {
     margin-left: auto;
-    @include setting.clean-size;
+    @include base.clean-size;
     font-size: setting.$open-btn-size;
     background: transparent;
   }
@@ -62,9 +62,6 @@
       display: grid;
       grid-template-rows: 1fr 1fr 1fr 0.3fr;
       height: calc(100% - setting.$dialog-bar-height);
-      &-item {
-        border: 0;
-      }
     }
   }
 }

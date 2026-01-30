@@ -3,6 +3,7 @@ import { writeFile } from '@tauri-apps/plugin-fs';
 import { invoke } from "@tauri-apps/api/core";
 import React from "react";
 import { toneQuality, parseConfig } from "./utils.ts"
+import "../Styles/MusicForm.scss"
 
 
 interface songSearchRes {
@@ -31,12 +32,11 @@ interface songGetRes {
     from: string
 }
 
-// interface settingForm {
-//     General_quality: string;
-//     Local_path: string;
-//     Server_interface: string;
-// }
-//
+const musicSource = [
+    "netease",
+    "joox",
+    "kuwo",
+]
 
 export default function MusicForm() {
     const [table, setTable] = React.useState([] as songSearchResClean[]);
@@ -47,8 +47,10 @@ export default function MusicForm() {
         e.preventDefault()
         const formData = new FormData(e.currentTarget)
         const formObject = Object.fromEntries(formData.entries());
+        console.log("formObjec:");
+        console.log(formObject);
 
-        // Notice Hardcode Page
+        // Notice Hardcode Pages
         const formPayload = {
             source: formObject.source as string,
             name: formObject.name as string,
@@ -57,6 +59,10 @@ export default function MusicForm() {
         };
         setSource(formPayload.source) // export source
         const res = await invoke<songSearchRes[]>("search_music", formPayload)
+        console.log("Original response:");
+        console.log(res);
+
+
         const resClean = res.map(song => {
             return {
                 id: song.id,
@@ -65,6 +71,7 @@ export default function MusicForm() {
                 artist: song.artist
             }
         })
+        console.log("Payload response:");
         console.log(resClean);
 
         setTable(resClean)
@@ -109,29 +116,37 @@ export default function MusicForm() {
 
         const fileData = await httpRes.arrayBuffer();
         const fileDataPayload = new Uint8Array(fileData);
-        // TODO download to certain path
-        // TODO Tauri Plugin promission
 
         await writeFile(filepath, fileDataPayload);
     }
     return (
         <div>
-            <form method="post" onSubmit={handleSubmit}>
-                <label>
-                    Source: <input defaultValue="netease" name="source" />
-                </label>
-                <br />
-                <label>
-                    Name: <input name="name" />
-                </label>
-                <br />
-                <label>
-                    Count: <input name="count" type="number" />
-                </label>
-                <hr />
-                <button type="reset">Reset form</button>
-                <button type="submit">Submit form</button>
+            <form className='form' method="post" onSubmit={handleSubmit}>
+                <div className='form-content'>
+                    <fieldset >
+
+                        <label>Source:</label>
+                        <select name="source"
+                            defaultValue={musicSource[0]}
+                        >
+                            {musicSource.map(source => <option key={source}>{source}</option>)}
+                        </select>
+                    </fieldset>
+                    <fieldset>
+                        <label>Name:</label>
+                        <input name="name" />
+                    </fieldset>
+                    <fieldset>
+                        <label>Count:</label>
+                        <input name="count" type="number" />
+                    </fieldset>
+                </div>
+                <div className='form-btn'>
+                    <button className='form-btn-item' type="reset">Reset form</button>
+                    <button className='form-btn-item' type="submit">Submit form</button>
+                </div>
             </form>
+            <hr />
             <table>
                 <thead>
                     <tr>

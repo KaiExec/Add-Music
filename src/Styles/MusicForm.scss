@@ -1,0 +1,33 @@
+@use "./Var/base.scss";
+
+hr {
+  color: base.$color-border;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+}
+.form {
+  display: flex;
+  height: 15vh;
+  width: 60%;
+  &-content {
+    label {
+      display: inline-block;
+      width: 3em;
+      text-align: left;
+      margin-right: 5px;
+    }
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: auto 0 auto 0;
+  }
+  &-btn {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    input {
+      display: block;
+    }
+  }
+}
